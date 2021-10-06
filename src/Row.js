@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import axios from './axios';
 import './Row.css';
-import YouTube from 'react-youtube';
-import movieTrailer from 'movie-trailer';
+import YouTube from "react-youtube";
+import movieTrailer from "movie-trailer";
 
 const base_url = "http://image.tmdb.org/t/p/w500/";
 
@@ -14,7 +14,7 @@ function Row({ title, fetchUrl, isLargeRow }) {
 //If[], run once when the row loads and dont run again
   async function fetchData() {
     const request = await axios.get(fetchUrl);
-    console.log(request.data.results);
+    // console.log(request.data.results);
     setMovies(request.data.results);
     return request; 
  }
@@ -31,12 +31,12 @@ const opts = {
 
 const handleClick = (movie) => {
   if (trailerUrl) {
-    setTrailerUrl('')
+    setTrailerUrl("")
   } else {
-    movieTrailer(movie?.name || "")
+    movieTrailer(movie?.name || movie?.title || movie?.original_title || " ")
     .then(url => {
       const urlParams = new URLSearchParams(new URL(url).search);
-      setTrailerUrl(urlParams.get('v'));
+      setTrailerUrl(urlParams.get("v"));
     })
     .catch(error => console.log(error));
     }
@@ -58,11 +58,12 @@ const handleClick = (movie) => {
           alt={movie.name}/>
         ))}
       </div>
-      <div style={{ paddind: "40px"}}>
-      {trailerUrl && <YouTube videoId={'trailerUrl'} opts={opts} />}
+      <div>
+      {trailerUrl && <YouTube videoId={trailerUrl} opts={opts} />}
       </div>
     </div>
   )
+  
 }
 
 export default Row
