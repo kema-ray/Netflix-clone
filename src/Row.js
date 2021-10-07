@@ -58,8 +58,8 @@ const handleClick = (movie) => {
           alt={movie.name}/>
         ))}
       </div>
-      <div style={{ paddind: "40px"}}>
-      {trailerUrl && <YouTube videoId={trailerUrl} opts={opts} />}
+      <div style={{ padding: "40px"}}>
+      {trailerUrl && <YouTube videoId={'trailerUrl'} opts={opts} />}
       </div>
     </div>
   )
